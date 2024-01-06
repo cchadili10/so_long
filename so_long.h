@@ -21,7 +21,28 @@ typedef struct s_img
     int fd;
     int y_p;
     int x_p;
+    int old_plx;
+    int old_ply;
 }   t_img;
+typedef struct s_player
+{
+    void *imgp;
+    int x;
+    int y;
+}   t_player;
+typedef struct s_background
+{
+    void *imgc;
+    int x;
+    int y;
+}   t_background;
+typedef struct s_coin
+{
+    void *imgc;
+    int x;
+    int y;
+}   t_coin;
+
 
 
 #endif
