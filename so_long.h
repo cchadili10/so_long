@@ -17,6 +17,7 @@ typedef struct s_img
     void *imgw;
     void *imgd;
     void *imgcd;
+    void *r1;
     char *mapp;
     int x;
     int y;
@@ -26,26 +27,9 @@ typedef struct s_img
     int x_p;
     int old_plx;
     int old_ply;
-    
+
 }   t_img;
-typedef struct s_player
-{
-    void *imgp;
-    int x;
-    int y;
-}   t_player;
-typedef struct s_background
-{
-    void *imgc;
-    int x;
-    int y;
-}   t_background;
-typedef struct s_coin
-{
-    void *imgc;
-    int x;
-    int y;
-}   t_coin;
+
 
 char	**ft_split(char const *s, char c);
 size_t	ft_strlenn(const char *str);

@@ -6,14 +6,20 @@
 /*   By: hchadili <hchadili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:46:38 by hchadili          #+#    #+#             */
-/*   Updated: 2024/01/07 17:18:23 by hchadili         ###   ########.fr       */
+/*   Updated: 2024/01/07 20:15:19 by hchadili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-void ft_foof_fill(char **arr)
+void ft_fool_fill(char **arr,int x, int y)
 {
-	
+	if(arr[y][x] == '1' || arr[y][x] == 'L')
+		return ;
+	arr[y][x] = 'L';
+	ft_fool_fill(arr,x+1,y);
+	ft_fool_fill(arr,x-1,y);
+	ft_fool_fill(arr,x,y+1);
+	ft_fool_fill(arr,x,y-1);
 }
 int ft_check_map(t_img *img, int i, int j)
 {
@@ -53,7 +59,38 @@ int ft_check_map(t_img *img, int i, int j)
 		printf("%d \t %d\t %d",y,check_E,check);
 		return 1;
 	}
-	ft_foof_fill(arr);
+	x = 0;
+	y = 0;
+	while (arr[y])
+	{
+		while (arr[y][x])
+		{
+			if(arr[y][x] == 'P')
+			{
+				img->x_p = x;
+				img->y_p = y;
+				break;
+			}
+			x++;
+		}
+		y++;
+		x=0;
+	}
+	ft_fool_fill(arr, img->x_p, img->y_p);
+	y = 0;
+	while (arr[y])
+	{
+		x = 0;
+		while (arr[y][x])
+		{
+			if (arr[y][x] == 'C' || arr[y][x] == 'E' || arr[y][x] == 'P')
+				return 1;
+			x++;
+		}
+		free(arr[y]);
+		y++;
+	}
+	free(arr);
 	return 0;
 }
 int look_for_coin(char *s)
@@ -67,7 +104,7 @@ int look_for_coin(char *s)
 	}
 	return 0;
 }
-void ft_show(t_img *img, int n)
+void ft_show(t_img *img, int n,int key_code)
 {
 	int x = 0;
 	int old_x;
@@ -106,8 +143,8 @@ void ft_show(t_img *img, int n)
 			img->y += 60;
     		img->x = -60;
 		}
-		if (n==0 && (img->x_p != old_x || img->y_p != old_y))
-			mlx_put_image_to_window(img->mlx, img->win, img->imgp, img->x_p, img->y_p);
+		if (n==0 && (img->x_p != old_x || img->y_p != old_y) || key_code == 124)
+			mlx_put_image_to_window(img->mlx, img->win, img->r1, img->x_p, img->y_p);
 		else if (n==0 && (img->x_p == old_x || img->y_p == old_y))
 		{
 			mlx_put_image_to_window(img->mlx, img->win, img->imgp, img->old_plx, img->old_ply);
@@ -140,7 +177,7 @@ int key_press(int keycode, t_img *img)
 		exit(0);
 	mlx_clear_window(img->mlx, img->win);
 	mlx_put_image_to_window(img->mlx, img->win, img->imgb, 0, 0);
-    ft_show(img, 0);
+    ft_show(img, 0,keycode);
 	printf("Key pressed: %d\t positon_y  %d\t positon_x  %d\n", keycode, img->y_p, img->x_p);
 	return (0);
 }
@@ -169,6 +206,7 @@ int main(int a, char *av[])
 		free(s);
 		s = get_next_line(img.fd);
 	}
+	free(s);
 	if(i == j)
 	{
 		printf("error");
@@ -197,12 +235,15 @@ int main(int a, char *av[])
 	img.imgw = mlx_xpm_file_to_image(img.mlx, "img/wall.xpm", &widthp, &heightp);
 	img.imgd = mlx_xpm_file_to_image(img.mlx, "img/door.xpm", &widthp, &heightp);
 	img.imgcd = mlx_xpm_file_to_image(img.mlx, "img/cdoor.xpm", &widthp, &heightp);
+	img.r1 = mlx_xpm_file_to_image(img.mlx, "img/pr1.xpm", &widthp, &heightp);
 
 	if (!img.imgp || !img.imgc || !img.imgw || !img.imgd || !img.imgcd)
 		return (1);
 	
-	ft_show(&img, 1);
+	ft_show(&img, 1,0);
 	mlx_hook(img.win, 2, 0, key_press, &img);
+	system("leaks a.out");
 	mlx_loop(img.mlx);
+	exit(1);
 	return (0);
 }
