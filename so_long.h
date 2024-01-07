@@ -15,14 +15,18 @@ typedef struct s_img
     void *imgp;
     void *imgc;
     void *imgw;
+    void *imgd;
+    void *imgcd;
     char *mapp;
     int x;
     int y;
     int fd;
+
     int y_p;
     int x_p;
     int old_plx;
     int old_ply;
+    
 }   t_img;
 typedef struct s_player
 {
@@ -43,6 +47,7 @@ typedef struct s_coin
     int y;
 }   t_coin;
 
-
+char	**ft_split(char const *s, char c);
+size_t	ft_strlenn(const char *str);
 
 #endif
