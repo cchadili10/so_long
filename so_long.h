@@ -17,7 +17,10 @@ typedef struct s_img
     void *imgw;
     void *imgd;
     void *imgcd;
-    void *r1;
+    void *pr;
+    void *pu;
+    void *pl;
+    void *pd;
     char *mapp;
     int x;
     int y;

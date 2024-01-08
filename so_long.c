@@ -6,7 +6,7 @@
 /*   By: hchadili <hchadili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:46:38 by hchadili          #+#    #+#             */
-/*   Updated: 2024/01/07 20:15:19 by hchadili         ###   ########.fr       */
+/*   Updated: 2024/01/08 19:35:16 by hchadili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int ft_check_map(t_img *img, int i, int j)
 	}
 	x = 0;
 	y = 0;
+	printf("1--");
 	while (img->mapp[x])
 	{
 		if(img->mapp[x] != 'P' && img->mapp[x] != 'E' && img->mapp[x] != '0' && img->mapp[x] != '1' && img->mapp[x] != 'C' && img->mapp[x] != '\n')
@@ -54,6 +55,7 @@ int ft_check_map(t_img *img, int i, int j)
 			check++;
 		x++;
 	}
+	
 	if(y != 1 || check_E != 1 || check < 1)
 	{
 		printf("%d \t %d\t %d",y,check_E,check);
@@ -104,8 +106,9 @@ int look_for_coin(char *s)
 	}
 	return 0;
 }
-void ft_show(t_img *img, int n,int key_code)
+void ft_show(t_img *img, int n, int key_c)
 {
+	int current_frame = 0;
 	int x = 0;
 	int old_x;
 	int old_y;
@@ -143,11 +146,22 @@ void ft_show(t_img *img, int n,int key_code)
 			img->y += 60;
     		img->x = -60;
 		}
-		if (n==0 && (img->x_p != old_x || img->y_p != old_y) || key_code == 124)
-			mlx_put_image_to_window(img->mlx, img->win, img->r1, img->x_p, img->y_p);
+		if (n==0 && (img->x_p != old_x || img->y_p != old_y))
+		{
+			//mlx_put_image_to_window(img->mlx, img->win, img->, img->x_p, img->y_p);
+			if(key_c == 123 || key_c == 0)
+				mlx_put_image_to_window(img->mlx, img->win, img->pl, img->x_p, img->y_p);
+			else if(key_c == 124|| key_c == 2)
+				mlx_put_image_to_window(img->mlx, img->win, img->pr, img->x_p, img->y_p);
+			else if(key_c == 125|| key_c == 1)
+				mlx_put_image_to_window(img->mlx, img->win, img->pd, img->x_p, img->y_p);
+			else if(key_c == 126|| key_c == 13)
+				mlx_put_image_to_window(img->mlx, img->win, img->pu, img->x_p, img->y_p);
+			else
+				mlx_put_image_to_window(img->mlx, img->win, img->imgp, img->x_p, img->y_p);
+		}
 		else if (n==0 && (img->x_p == old_x || img->y_p == old_y))
 		{
-			mlx_put_image_to_window(img->mlx, img->win, img->imgp, img->old_plx, img->old_ply);
 			img->x_p = img->old_plx;
 			img->y_p = img->old_ply;
 		}
@@ -175,9 +189,10 @@ int key_press(int keycode, t_img *img)
 		img->y_p -= 60;
 	else if (keycode == 53)
 		exit(0);
+		
 	mlx_clear_window(img->mlx, img->win);
 	mlx_put_image_to_window(img->mlx, img->win, img->imgb, 0, 0);
-    ft_show(img, 0,keycode);
+    ft_show(img, 0, keycode);
 	printf("Key pressed: %d\t positon_y  %d\t positon_x  %d\n", keycode, img->y_p, img->x_p);
 	return (0);
 }
@@ -231,18 +246,20 @@ int main(int a, char *av[])
 	mlx_put_image_to_window(img.mlx, img.win, img.imgb, 0, 0);
 
 	img.imgp = mlx_xpm_file_to_image(img.mlx, "img/player.xpm", &widthp, &heightp);
-	img.imgc = mlx_xpm_file_to_image(img.mlx, "img/coin.xpm", &widthp, &heightp);
+	img.imgc = mlx_xpm_file_to_image(img.mlx, "img/flos.xpm", &widthp, &heightp);
 	img.imgw = mlx_xpm_file_to_image(img.mlx, "img/wall.xpm", &widthp, &heightp);
 	img.imgd = mlx_xpm_file_to_image(img.mlx, "img/door.xpm", &widthp, &heightp);
 	img.imgcd = mlx_xpm_file_to_image(img.mlx, "img/cdoor.xpm", &widthp, &heightp);
-	img.r1 = mlx_xpm_file_to_image(img.mlx, "img/pr1.xpm", &widthp, &heightp);
+	img.pr = mlx_xpm_file_to_image(img.mlx, "img/pr.xpm", &widthp, &heightp);
+	img.pu = mlx_xpm_file_to_image(img.mlx, "img/pu.xpm", &widthp, &heightp);
+	img.pl = mlx_xpm_file_to_image(img.mlx, "img/pl.xpm", &widthp, &heightp);
+	img.pd = mlx_xpm_file_to_image(img.mlx, "img/pd.xpm", &widthp, &heightp);
 
 	if (!img.imgp || !img.imgc || !img.imgw || !img.imgd || !img.imgcd)
 		return (1);
-	
-	ft_show(&img, 1,0);
+	ft_show(&img, 1, 0);
 	mlx_hook(img.win, 2, 0, key_press, &img);
-	system("leaks a.out");
+	//system("leaks a.out");
 	mlx_loop(img.mlx);
 	exit(1);
 	return (0);
