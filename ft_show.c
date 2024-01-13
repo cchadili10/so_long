@@ -6,7 +6,7 @@
 /*   By: hchadili <hchadili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:42:33 by hchadili          #+#    #+#             */
-/*   Updated: 2024/01/12 16:50:44 by hchadili         ###   ########.fr       */
+/*   Updated: 2024/01/13 15:30:34 by hchadili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_complit(t_img *i, int key_c, int b, char c)
 		else if (key_c == 126 || key_c == 13)
 			mlx_put_image_to_window(i->mlx, i->win, i->pu, i->x_p, i->y_p);
 		else
-			mlx_put_image_to_window(i->mlx, i->win, i->imgb, i->x_p, i->y_p);
+			mlx_put_image_to_window(i->mlx, i->win, i->imgp, i->x_p, i->y_p);
 	}
 	else if (c == '\n')
 	{
@@ -103,7 +103,7 @@ void	ft_show(t_img *i, int n, int key_c)
 			mlx_put_image_to_window(i->mlx, i->win, i->imgc, i->x, i->y);
 		else if (i->mapp[x] == 'C' && (i->x_p == i->x && i->y_p == i->y))
 			i->mapp[x] = '0';
-		else if (i->mapp[x] == '\n')
+		if (i->mapp[x] == '\n')
 			ft_complit(i, key_c, 0, i->mapp[x]);
 		if (n == 0 && (i->x_p != old_x || i->y_p != old_y))
 			ft_complit(i, key_c, 1, i->mapp[x]);

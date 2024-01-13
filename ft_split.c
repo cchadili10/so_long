@@ -6,7 +6,7 @@
 /*   By: hchadili <hchadili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 12:41:38 by hchadili          #+#    #+#             */
-/*   Updated: 2024/01/07 14:48:31 by hchadili         ###   ########.fr       */
+/*   Updated: 2024/01/13 15:35:20 by hchadili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ size_t	ft_strlenn(const char *str)
 		x++;
 	return (x);
 }
+
 static int	ft_count_words(const char *s1, int c)
 {
 	int	x;

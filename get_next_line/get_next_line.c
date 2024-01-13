@@ -6,12 +6,11 @@
 /*   By: hchadili <hchadili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 06:33:31 by hchadili          #+#    #+#             */
-/*   Updated: 2023/12/28 11:53:05 by hchadili         ###   ########.fr       */
+/*   Updated: 2024/01/13 15:42:20 by hchadili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
 
 char	*ft_getline_wnl(char *garbage, int len)
 {
@@ -121,7 +120,7 @@ char	*get_next_line(int fd)
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
 	if (read(fd, 0, 0) < 0)
-		return (ft_bzero(garbage, BUFFER_SIZE),NULL);
+		return (ft_bzero(garbage, BUFFER_SIZE), NULL);
 	n = 0;
 	all = NULL;
 	all = ft_check_garbege(garbage, all, &n);
