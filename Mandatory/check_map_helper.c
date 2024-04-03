@@ -6,7 +6,7 @@
 /*   By: hchadili <hchadili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 17:53:14 by hchadili          #+#    #+#             */
-/*   Updated: 2024/04/03 01:05:03 by hchadili         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:09:06 by hchadili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ int	ft_helper(t_img *img, int *i, int *j, char *str)
 		free(s);
 		s = get_next_line(img->fd);
 	}
-	free(s);
+	close(img->fd);
 	if (*i == *j)
-		return (1);
+		return (free(s), 1);
 	if (ft_check_map(img, *i, *j))
-		return (1);
-	return (0);
+		return (free(s), 1);
+	return (free(s), 0);
 }

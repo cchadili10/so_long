@@ -6,7 +6,7 @@
 /*   By: hchadili <hchadili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 16:52:08 by hchadili          #+#    #+#             */
-/*   Updated: 2024/04/02 23:24:57 by hchadili         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:07:29 by hchadili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int	ft_check_map(t_img *img, int i, int j)
 	int		y;
 
 	arr = ft_split(img->mapp, '\n');
-	printf("work_2\n");
 	x = 0;
 	y = 0;
 	while (arr[0][x])

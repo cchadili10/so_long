@@ -6,7 +6,7 @@
 /*   By: hchadili <hchadili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:52:37 by hchadili          #+#    #+#             */
-/*   Updated: 2024/01/13 15:36:01 by hchadili         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:00:30 by hchadili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,5 @@ int	key_press(int keycode, t_img *img)
 	ft_show(img, 0, keycode);
 	if (img->old_plx != img->x_p || img->old_ply != img->y_p)
 		img->move += 1;
-	mlx_string_put(img->mlx, img->win, 0, 0, 0xFFFFFF, ft_itoa(img->move));
 	return (0);
 }

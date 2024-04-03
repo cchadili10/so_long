@@ -6,7 +6,7 @@
 /*   By: hchadili <hchadili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 15:42:33 by hchadili          #+#    #+#             */
-/*   Updated: 2024/01/13 15:30:34 by hchadili         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:52:57 by hchadili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,9 @@ void	ft_handel(t_img *i, char c, int *old_x, int *old_y)
 	}
 	else if (c == 'E')
 	{
-		if (look_for_coin(i->mapp))
-			mlx_put_image_to_window(i->mlx, i->win, i->imgd, i->x, i->y);
-		else if (look_for_coin(i->mapp) == 0)
+		mlx_put_image_to_window(i->mlx, i->win, i->imgd, i->x, i->y);
+		if (look_for_coin(i->mapp) == 0)
 		{
-			mlx_put_image_to_window(i->mlx, i->win, i->imgcd, i->x, i->y);
 			if (i->x == i->x_p && i->y == i->y_p)
 				exit(0);
 		}
@@ -58,13 +56,13 @@ void	ft_complit(t_img *i, int key_c, int b, char c)
 	if (b)
 	{
 		if (key_c == 123 || key_c == 0)
-			mlx_put_image_to_window(i->mlx, i->win, i->pl, i->x_p, i->y_p);
+			mlx_put_image_to_window(i->mlx, i->win, i->imgp, i->x_p, i->y_p);
 		else if (key_c == 124 || key_c == 2)
-			mlx_put_image_to_window(i->mlx, i->win, i->pr, i->x_p, i->y_p);
+			mlx_put_image_to_window(i->mlx, i->win, i->imgp, i->x_p, i->y_p);
 		else if (key_c == 125 || key_c == 1)
-			mlx_put_image_to_window(i->mlx, i->win, i->pd, i->x_p, i->y_p);
+			mlx_put_image_to_window(i->mlx, i->win, i->imgp, i->x_p, i->y_p);
 		else if (key_c == 126 || key_c == 13)
-			mlx_put_image_to_window(i->mlx, i->win, i->pu, i->x_p, i->y_p);
+			mlx_put_image_to_window(i->mlx, i->win, i->imgp, i->x_p, i->y_p);
 		else
 			mlx_put_image_to_window(i->mlx, i->win, i->imgp, i->x_p, i->y_p);
 	}
