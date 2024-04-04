@@ -6,7 +6,7 @@
 /*   By: hchadili <hchadili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 17:02:04 by hchadili          #+#    #+#             */
-/*   Updated: 2024/04/03 16:40:54 by hchadili         ###   ########.fr       */
+/*   Updated: 2024/04/04 01:14:17 by hchadili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ void	ft_start(t_img *img, int w_b, int h_b)
 	int	h;
 
 	img->mlx = mlx_init();
+	if (!img->mlx)
+		ft_error;
 	img->win = mlx_new_window(img->mlx, (w_b * 60), (h_b * 60), "so_long");
+	if (!img->win)
+		ft_error;
 	img->imgb = mlx_xpm_file_to_image(img->mlx, "Mandatory/img/bk.xpm", &w_b, &h_b);
 	if (!img->imgb)
 		ft_error();
