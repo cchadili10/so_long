@@ -6,21 +6,45 @@
 /*   By: hchadili <hchadili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 17:53:14 by hchadili          #+#    #+#             */
-/*   Updated: 2024/04/03 17:09:06 by hchadili         ###   ########.fr       */
+/*   Updated: 2024/06/07 22:10:20 by hchadili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	ft_helper(t_img *img, int *i, int *j, char *str)
+void	look_for_err_map(char *s)
+{
+	int	x;
+	int	cnt_p;
+	int	cnt_e;
+	int	cnt_c;
+
+	((1) && (cnt_c = 0, cnt_p = 0, cnt_e = 0, cnt_c = 0, x = 0));
+	while (s[x])
+	{
+		if (s[x] != 'P' && s[x] != 'E' && s[x] != '0'
+			&& s[x] != '1' && s[x] != 'C' && s[x] != '\n')
+			ft_error("Error\ninvalid characters\n");
+		if (s[x] == 'P')
+			cnt_p++;
+		if (s[x] == 'E')
+			cnt_e++;
+		if (s[x] == 'C')
+			cnt_c++;
+		x++;
+	}
+	if (cnt_p != 1 || cnt_e != 1 || cnt_c < 1)
+		ft_error("Error\nduplicates characters or missing characters\n");
+}
+
+void	ft_read_map(t_img *img, int *i, int *j, char *str)
 {
 	char	*s;
 	int		sum;
 
-	sum = 0;
 	img->fd = open(str, O_RDONLY);
-	if(img->fd == -1)
-		ft_error();
+	if (img->fd == -1)
+		ft_error("Error\ninvalid file\n");
 	s = get_next_line(img->fd);
 	sum = ft_strlenn(s);
 	while (s)
@@ -28,15 +52,16 @@ int	ft_helper(t_img *img, int *i, int *j, char *str)
 		*j = ft_strlenn(s);
 		img->mapp = ft_strjoin(img->mapp, s);
 		if (*j != sum)
-			return (1);
+		{
+			close(img->fd);
+			free(s);
+			ft_error("Error\ninvalid map\n");
+		}
 		*i += 1;
 		free(s);
 		s = get_next_line(img->fd);
 	}
 	close(img->fd);
-	if (*i == *j)
-		return (free(s), 1);
-	if (ft_check_map(img, *i, *j))
-		return (free(s), 1);
-	return (free(s), 0);
+	if ((*i * 60) > 1360 || (*j * 60) > 2560)
+		ft_error("Error\nmap is big\n");
 }

@@ -6,7 +6,7 @@
 /*   By: hchadili <hchadili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 12:41:38 by hchadili          #+#    #+#             */
-/*   Updated: 2024/01/13 15:35:20 by hchadili         ###   ########.fr       */
+/*   Updated: 2024/06/06 00:23:21 by hchadili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (0);
 	count = ft_count_words(s, c);
+	if (count == 0)
+		return (0);
 	array = (char **) malloc(sizeof(char *) * (count + 1));
 	if (!array)
 		return (0);

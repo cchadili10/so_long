@@ -6,7 +6,7 @@
 /*   By: hchadili <hchadili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 17:02:04 by hchadili          #+#    #+#             */
-/*   Updated: 2024/04/04 01:14:17 by hchadili         ###   ########.fr       */
+/*   Updated: 2024/06/06 00:28:02 by hchadili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ void	ft_for_des(t_img *img, int x)
 		mlx_destroy_image(img->mlx, img->imgc);
 		mlx_destroy_image(img->mlx, img->imgw);
 	}
-	((1) && (img->imgb = NULL , img->imgp = NULL, img->imgc = NULL));
-	((1) && (img->imgw = NULL , img->imgd = NULL));
-	ft_error();
+	ft_error("Error\ninvalid img\n");
 }
 
 void	ft_start(t_img *img, int w_b, int h_b)
@@ -46,23 +44,23 @@ void	ft_start(t_img *img, int w_b, int h_b)
 
 	img->mlx = mlx_init();
 	if (!img->mlx)
-		ft_error;
+		ft_error("error : mlx problem");
 	img->win = mlx_new_window(img->mlx, (w_b * 60), (h_b * 60), "so_long");
 	if (!img->win)
-		ft_error;
-	img->imgb = mlx_xpm_file_to_image(img->mlx, "Mandatory/img/bk.xpm", &w_b, &h_b);
+		ft_error("error : mlx problem");
+	img->imgb = mlx_xpm_file_to_image(img->mlx, "textures/bk.xpm", &w_b, &h_b);
 	if (!img->imgb)
-		ft_error();
-	img->imgp = mlx_xpm_file_to_image(img->mlx, "Mandatory/img/player.xpm", &w, &h);
+		ft_error("error : invalid img");
+	img->imgp = mlx_xpm_file_to_image(img->mlx, "textures/player.xpm", &w, &h);
 	if (!img->imgp)
 		ft_for_des(img, 2);
-	img->imgc = mlx_xpm_file_to_image(img->mlx, "Mandatory/img/flos.xpm", &w, &h);
+	img->imgc = mlx_xpm_file_to_image(img->mlx, "textures/coin.xpm", &w, &h);
 	if (!img->imgc)
 		ft_for_des(img, 3);
-	img->imgw = mlx_xpm_file_to_image(img->mlx, "Mandatory/img/wall.xpm", &w, &h);
+	img->imgw = mlx_xpm_file_to_image(img->mlx, "textures/wall.xpm", &w, &h);
 	if (!img->imgw)
 		ft_for_des(img, 4);
-	img->imgd = mlx_xpm_file_to_image(img->mlx, "Mandatory/img/door.xpm", &w, &h);
+	img->imgd = mlx_xpm_file_to_image(img->mlx, "textures/door.xpm", &w, &h);
 	if (!img->imgd)
 		ft_for_des(img, 5);
 }

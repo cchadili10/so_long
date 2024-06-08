@@ -6,7 +6,7 @@
 #    By: hchadili <hchadili@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/02 01:11:28 by hchadili          #+#    #+#              #
-#    Updated: 2024/04/03 01:05:58 by hchadili         ###   ########.fr        #
+#    Updated: 2024/06/04 12:25:20 by hchadili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,13 +17,13 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
-SRC = Mandatory/so_long.c Mandatory/ft_itoa.c Mandatory/key_press.c Mandatory/ft_start.c Mandatory/ft_split.c \
+SRC = Mandatory/so_long.c Mandatory/ft_putnbr.c Mandatory/key_press.c Mandatory/ft_start.c Mandatory/ft_split.c \
 		Mandatory/ft_show.c Mandatory/check_map.c Mandatory/check_map_helper.c Mandatory/get_next_line/get_next_line.c \
-		Mandatory/get_next_line/get_next_line_utils.c
+		Mandatory/get_next_line/get_next_line_utils.c Mandatory/ft_free_arr.c
 
-SRC_B = Bonus/so_long.c Bonus/split.c Bonus/itoa.c Bonus/key_press.c Bonus/ft_start.c \
-		Bonus/ft_show.c Bonus/check_map.c Mandatory/check_map_helper.c Bonus/get_next_line/get_next_line.c \
-		Bonus/get_next_line/get_next_line_utils.c
+SRC_B = Bonus/so_long_bonus.c Bonus/ft_split_bonus.c Bonus/ft_itoa_bonus.c Bonus/key_press_bonus.c Bonus/ft_start_bonus.c \
+		Bonus/ft_show_bonus.c Bonus/check_map_bonus.c Bonus/check_map_helper_bonus.c Bonus/get_next_line/get_next_line_bonus.c \
+		Bonus/get_next_line/get_next_line_utils_bonus.c Bonus/ft_free_arr_bonus.c Bonus/move_enmy_even_bonus.c Bonus/move_enmy_odd_bonus.c
 
 
 OBJS = $(SRC:.c=.o)
@@ -42,7 +42,7 @@ $(NAME_B): $(OBJS_B)
 Mandatory/%.o : Mandatory/%.c Mandatory/so_long.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
-Bonus/%.o : Bonus/%.c Bonus/push_swap_bonus.h
+Bonus/%.o : Bonus/%.c Bonus/so_long_bonus.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

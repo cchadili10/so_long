@@ -6,7 +6,7 @@
 /*   By: hchadili <hchadili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 16:52:08 by hchadili          #+#    #+#             */
-/*   Updated: 2024/04/03 17:07:29 by hchadili         ###   ########.fr       */
+/*   Updated: 2024/06/06 00:31:49 by hchadili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,6 @@ void	ft_fool_fill(char **arr, int x, int y)
 	ft_fool_fill(arr, x - 1, y);
 	ft_fool_fill(arr, x, y + 1);
 	ft_fool_fill(arr, x, y - 1);
-}
-
-int	look_for_err_map(char *s)
-{
-	int	x;
-	int	y;
-	int	j;
-	int	k;
-
-	((1) && (k = 0, y = 0, j = 0, k = 0, x = 0));
-	while (s[x])
-	{
-		if (s[x] != 'P' && s[x] != 'E' && s[x] != '0'
-			&& s[x] != '1' && s[x] != 'C' && s[x] != '\n')
-			return (1);
-		if (s[x] == 'P')
-			y++;
-		if (s[x] == 'E')
-			j++;
-		if (s[x] == 'C')
-			k++;
-		x++;
-	}
-	if (y != 1 || j != 1 || k < 1)
-		return (1);
-	return (0);
 }
 
 void	ft_get_pos_player(t_img *img, char **arr)
@@ -73,7 +47,7 @@ void	ft_get_pos_player(t_img *img, char **arr)
 	}
 }
 
-int	ft_is_valid(char **arr)
+void	ft_is_valid(char **arr)
 {
 	int	x;
 	int	y;
@@ -86,39 +60,49 @@ int	ft_is_valid(char **arr)
 		while (arr[y][x])
 		{
 			if (arr[y][x] == 'C' || arr[y][x] == 'E' || arr[y][x] == 'P')
-				return ((1));
+			{
+				ft_free_arr(arr);
+				ft_error("Error\ninvalid phat\n");
+			}
 			x++;
 		}
-		free(arr[y]);
 		y++;
 	}
-	return ((0));
+	ft_free_arr(arr);
 }
 
-int	ft_check_map(t_img *img, int i, int j)
+void	ft_for_flood(t_img *img, char **arr)
+{
+	ft_get_pos_player(img, arr);
+	ft_fool_fill(arr, img->x_p, img->y_p);
+	ft_is_valid(arr);
+}
+
+void	ft_check_map(t_img *img, int i, int j)
 {
 	char	**arr;
 	int		x;
 	int		y;
 
 	arr = ft_split(img->mapp, '\n');
-	x = 0;
-	y = 0;
-	while (arr[0][x])
+	if (!arr)
+		ft_error("Error\nmalloc fail\n");
+	((1) && (x = -1, y = -1));
+	while (arr[0][++x])
 	{
 		if (arr[0][x] != '1' || arr[i - 1][x] != '1')
-			return (1);
-		x++;
+		{
+			ft_free_arr(arr);
+			ft_error("Error\ninvalid map\n");
+		}
 	}
-	while (arr[y])
+	while (arr[++y])
 	{
 		if (arr[y][0] != '1' || arr[y][j - 1] != '1')
-			return (1);
-		y++;
+		{
+			ft_free_arr(arr);
+			ft_error("Error\ninvalid map\n");
+		}
 	}
-	ft_get_pos_player(img, arr);
-	ft_fool_fill(arr, img->x_p, img->y_p);
-	if (ft_is_valid(arr))
-		return (free(arr), 1);
-	return (free(arr), 0);
+	ft_for_flood(img, arr);
 }

@@ -6,36 +6,42 @@
 /*   By: hchadili <hchadili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:46:38 by hchadili          #+#    #+#             */
-/*   Updated: 2024/04/04 01:19:01 by hchadili         ###   ########.fr       */
+/*   Updated: 2024/06/07 22:10:20 by hchadili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_error(void)
+void	ft_error(char *s)
 {
-	write(2,"Error\n",6);
+	write(2, s, ft_strlen(s));
+	exit(1);
+}
+
+int	ft_cross(t_img *img)
+{
+	ft_des_img(img);
 	exit(0);
 }
+
 void	ft_look_ber(char *s)
 {
-	int	x;
-	int	y;
-	char *s1;
-	
+	int		x;
+	int		y;
+	char	*s1;
+
 	s1 = ".ber";
 	x = ft_strlen(s) - 1;
 	y = ft_strlen(s1) - 1;
-	while (y)
+	while (y >= 0)
 	{
 		if (s[x] != s1[y])
-			ft_error();
+			ft_error("Error\nfile should have .ber extension\n");
 		x--;
 		y--;
 	}
-	if(x == 0)
-		ft_error();
 }
+
 int	main(int a, char *av[])
 {
 	t_img	img;
@@ -45,17 +51,17 @@ int	main(int a, char *av[])
 	i = 0;
 	j = 0;
 	if (a == 1 || a > 2)
-		ft_error();
+		ft_error("Error\nput valid argumets\n");
+	ft_setzero(&img);
 	ft_look_ber(av[1]);
-	if (ft_helper(&img, &i, &j, av[1]))
-		ft_error();
-	img.x = 0;
-	img.y = 0;
-	printf("i =  %d j = %d\n",i,j);
+	ft_read_map(&img, &i, &j, av[1]);
+	look_for_err_map(img.mapp);
+	ft_check_map(&img, i, j);
 	ft_start(&img, j, i);
 	mlx_put_image_to_window(img.mlx, img.win, img.imgb, 0, 0);
-	ft_show(&img, 1, 0);
+	ft_show(&img, 1);
 	mlx_hook(img.win, 2, 0, key_press, &img);
+	mlx_hook(img.win, 17, 0, ft_cross, &img);
 	mlx_loop(img.mlx);
 	return (0);
 }
